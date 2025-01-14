@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Path to nomacs application
+NOMACS_APP="org.nomacs"
+
+# List of file extensions
+FILE_EXTENSIONS=(
+  "png"
+  "jpg"
+  "jpeg"
+  "jpe"
+  "jp2"
+  "j2k"
+  "jpf"
+  "jpx"
+  "jpm"
+  "jpgx"
+  "tif"
+  "tiff"
+  "bmp"
+  "ppm"
+  "xbm"
+  "xpm"
+  "wbmp"
+  "webp"
+  "gif"
+  "pbm"
+  "pgm"
+  "tga"
+  "cur"
+  "icns"
+  "svg"
+  "svgz"
+  "ico"
+  "nef"
+  "nrw"
+  "crw"
+  "cr2"
+  "cr3"
+  "arw"
+  "dng"
+  "raw"
+  "rw2"
+  "mrw"
+  "srw"
+  "orf"
+  "3fr"
+  "x3f"
+  "mos"
+  "pef"
+  "iiq"
+  "raf"
+  "jps"
+  "pns"
+  "mpo"
+  "psd"
+  "psb"
+  "cbz"
+  "kra"
+  "exif"
+  "vec"
+  "roh"
+  "drif"
+  "heic"
+  "heif"
+)
+
+# Set nomacs as the default application for each file extension
+for ext in "${FILE_EXTENSIONS[@]}"; do
+  duti -s "$NOMACS_APP" "$ext" all
+done
+
+echo "Nomacs has been set as the default application for the specified file formats."

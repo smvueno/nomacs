@@ -348,6 +348,32 @@ cmake -D QT_MAJOR_VERSION=5 -D ENABLE_TRANSLATIONS=ON -D USE_SYSTEM_QUAZIP=ON <n
 cmake --build . --parallel 8
 ```
 
+## Set nomacs as the Default Viewer
+
+To set nomacs as the default viewer for various image formats on macOS, you can use the `duti` command-line tool. Follow these steps:
+
+1. **Install `duti`**:
+   Open your terminal and run the following command to install `duti` using Homebrew:
+   ```sh
+   brew install duti
+   ```
+
+2. **Edit the `set_nomacs_default.sh` script**:
+   The `set_nomacs_default.sh` script is located in the `scripts` directory. Edit this script to include the file extensions you want nomacs to handle. Here is an example of the script:
+
+3. **Make the script executable**:
+   Run the following command to make the script executable:
+   ```sh
+   chmod +x ./scripts/set_nomacs_default.sh
+   ```
+
+4. **Run the script**:
+   Execute the script to set nomacs as the default application for the specified file formats:
+   ```sh
+   ./scripts/set_nomacs_default.sh
+   ```
+
+This will set nomacs as the default application for the specified file formats.
 
 ## Build in Docker
 
@@ -370,7 +396,6 @@ docker login
 docker tag nomacs diemmarkus/nomacs
 docker push diemmarkus/nomacs:latest
 ```
-
 
 ## Enable Debug output
 
