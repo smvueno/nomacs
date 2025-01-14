@@ -348,7 +348,7 @@ cmake -D QT_MAJOR_VERSION=5 -D ENABLE_TRANSLATIONS=ON -D USE_SYSTEM_QUAZIP=ON <n
 cmake --build . --parallel 8
 ```
 
-## Set nomacs as the Default Viewer
+## Set nomacs as the Default Viewer on Mac
 
 To set nomacs as the default viewer for various image formats on macOS, you can use the `duti` command-line tool. Follow these steps:
 
