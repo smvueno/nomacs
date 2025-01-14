@@ -194,6 +194,8 @@ protected:
     bool mBlockZooming = false;
     QTimer *mZoomTimer;
 
+    bool mIsZoomedIn = false;  // track zoom state
+
     // functions
     virtual void draw(QPainter &painter, double opacity = 1.0);
     virtual void drawPattern(QPainter &painter) const;

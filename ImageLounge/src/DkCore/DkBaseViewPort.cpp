@@ -101,6 +101,8 @@ DkBaseViewPort::DkBaseViewPort(QWidget *parent)
     mHideCursorTimer = new QTimer(this);
     mHideCursorTimer->setInterval(1000);
     connect(mHideCursorTimer, &QTimer::timeout, this, &DkBaseViewPort::hideCursor);
+
+    mIsZoomedIn = false; // initialize zoom state
 }
 
 DkBaseViewPort::~DkBaseViewPort()
@@ -453,6 +455,19 @@ void DkBaseViewPort::mouseReleaseEvent(QMouseEvent *event)
 
 void DkBaseViewPort::mouseDoubleClickEvent(QMouseEvent *event)
 {
+    if (event->button() == Qt::LeftButton) {
+        if (mIsZoomedIn) {
+            resetView();  // zoom out to fit window
+        } else {
+            double currentZoomFactor = mWorldMatrix.m11();
+            double targetZoomFactor = 1.0 / mImgMatrix.m11();
+            double zoomFactor = targetZoomFactor / currentZoomFactor;
+            zoom(zoomFactor, event->pos());  // zoom to 100% at clicked position
+        }
+        mIsZoomedIn = !mIsZoomedIn;
+        return;
+    }
+
     QCoreApplication::sendEvent(parentWidget(), event);
 }
 
