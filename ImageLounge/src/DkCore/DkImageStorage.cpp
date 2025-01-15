@@ -32,6 +32,9 @@
 #include "DkThumbs.h"
 #include "DkTimer.h"
 #include <cmath>
+#include <QImageReader>
+#include <QGuiApplication>
+#include <QScreen>
 
 #ifdef WITH_OPENCV
 #include <opencv2/core.hpp>
@@ -1593,6 +1596,11 @@ QImage imageStorageScaleToSize(const QImage &src, const QSize &size)
     if (s.width() == 0)
         s.setWidth(1);
 
+    // Adjust size according to device pixel ratio
+    qreal devicePixelRatio = QGuiApplication::primaryScreen()->devicePixelRatio();
+    s.setWidth(s.width() * devicePixelRatio);
+    s.setHeight(s.height() * devicePixelRatio);
+
 #ifdef WITH_OPENCV
     try {
         cv::Mat rImgCv = DkImage::qImage2Mat(resizedImg);
@@ -1605,6 +1613,9 @@ QImage imageStorageScaleToSize(const QImage &src, const QSize &size)
 #else
     resizedImg = resizedImg.scaled(s, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 #endif
+
+    // Set the device pixel ratio for the resized image
+    resizedImg.setDevicePixelRatio(devicePixelRatio);
 
     return resizedImg;
 }
@@ -1625,4 +1636,21 @@ void DkImageStorage::imageComputed()
     else
         qWarning() << "could not compute interpolated image...";
 }
+
+QImage DkImageStorage::loadImage(const QString &filePath) {
+    QImageReader reader(filePath);
+    reader.setAutoTransform(true);
+    QImage image = reader.read();
+
+    if (image.isNull()) {
+        qWarning() << "Failed to load image:" << filePath;
+        return QImage();
+    }
+
+    // Set the device pixel ratio for high DPI displays
+    image.setDevicePixelRatio(QGuiApplication::primaryScreen()->devicePixelRatio());
+
+    return image;
+}
+
 }

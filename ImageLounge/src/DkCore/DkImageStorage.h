@@ -171,6 +171,7 @@ public:
     void setImage(const QImage &img);
     QImage imageConst() const;
     QImage image(const QSize &size = QSize());
+    static QImage loadImage(const QString &filePath); // Add this declaration
 
 public slots:
     void antiAliasingChanged(bool antiAliasing);

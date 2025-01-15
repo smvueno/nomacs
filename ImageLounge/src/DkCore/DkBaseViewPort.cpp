@@ -460,9 +460,9 @@ void DkBaseViewPort::mouseDoubleClickEvent(QMouseEvent *event)
             resetView();  // zoom out to fit window
         } else {
             double currentZoomFactor = mWorldMatrix.m11();
-            double targetZoomFactor = 1.0 / mImgMatrix.m11();
+            double targetZoomFactor = 0.5 / mImgMatrix.m11();
             double zoomFactor = targetZoomFactor / currentZoomFactor;
-            zoom(zoomFactor, event->pos());  // zoom to 100% at clicked position
+            zoom(zoomFactor, event->pos());  // zoom to 50% at clicked position
         }
         mIsZoomedIn = !mIsZoomedIn;
         return;
